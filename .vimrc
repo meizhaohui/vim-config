@@ -82,15 +82,14 @@
     set splitbelow
     " 是否折叠,设置为关闭
     set foldlevel=20
-
-"  }}}
+" 基本设置 }}}
 
 " 设置键映射前缀
 " 设置-减号为前缀
 " 注意此处定义时变量名是mapleader，而引用时是<leader>
 let mapleader = "-"
 
-" 映射 {
+" 映射 {{{
     " 忘记使用sudo打开vim时，使用w!! 强制保存文件
     " allow saving of files as sudo when i forgot to start vim using sudo.
     " cmap w!! w !sudo tee > /dev/null %
@@ -144,21 +143,20 @@ let mapleader = "-"
     
     " 插入模式下，将该单词转换成大写
     " imap <leader>u <esc>viwu<esc>i
+" 映射 }}}
 
-"  }
 
-
-" 文件头注释 { 
+" 文件头注释 {{{ 
     "Set Comment START
     autocmd BufNewFile *.c,*.py,*.go,*.sh exec ":call SetComment()" |normal 10Go
     func SetComment()
         if expand("%:e") == 'c'
             call setline(1, "/*")
             call append(1, ' *      Filename: '.expand("%"))
-            call append(2, ' *        Author: zhaohui mei<mzh.whut@gmail.com>')
+            call append(2, ' *        Author: Zhaohui Mei<mzh.whut@gmail.com>')
             call append(3, ' *   Description:      ')
-            call append(4, ' *   Create Time: '.strftime("%y-%m-%d %h:%m:%s"))
-            call append(5, ' * Last Modified: '.strftime("%y-%m-%d %h:%m:%s"))
+            call append(4, ' *   Create Time: '.strftime("%Y-%m-%d %H:%M:%S"))
+            call append(5, ' * Last Modified: '.strftime("%Y-%m-%d %H:%M:%S"))
             call append(6, ' */')
             call append(7, '')
             call append(8, '')
@@ -167,10 +165,10 @@ let mapleader = "-"
         elseif expand("%:e") == 'go'
             call setline(1, "/*")
             call append(1, ' *      Filename: '.expand("%"))
-            call append(2, ' *        Author: zhaohui mei<mzh.whut@gmail.com>')
+            call append(2, ' *        Author: Zhaohui Mei<mzh.whut@gmail.com>')
             call append(3, ' *   Description:      ')
-            call append(4, ' *   Create Time: '.strftime("%y-%m-%d %h:%m:%s"))
-            call append(5, ' * Last Modified: '.strftime("%y-%m-%d %h:%m:%s"))
+            call append(4, ' *   Create Time: '.strftime("%Y-%m-%d %H:%M:%S"))
+            call append(5, ' * Last Modified: '.strftime("%Y-%m-%d %H:%M:%S"))
             call append(6, ' */')
             call append(7, 'package main')
             call append(8, '')
@@ -183,10 +181,10 @@ let mapleader = "-"
             call setline(1, '#!/usr/bin/python3')
             call append(1, '"""')
             call append(2, '#      Filename: '.expand("%"))
-            call append(3, '#        Author: zhaohui mei<mzh.whut@gmail.com>')
+            call append(3, '#        Author: Zhaohui Mei<mzh.whut@gmail.com>')
             call append(4, '#   Description:      ')
-            call append(5, '#   Create Time: '.strftime("%y-%m-%d %h:%m:%s"))
-            call append(6, '# Last Modified: '.strftime("%y-%m-%d %h:%m:%s"))
+            call append(5, '#   Create Time: '.strftime("%Y-%m-%d %H:%M:%S"))
+            call append(6, '# Last Modified: '.strftime("%Y-%m-%d %H:%M:%S"))
             call append(7, '"""')
             call append(8, '')
             call append(9, '')
@@ -195,22 +193,21 @@ let mapleader = "-"
             call setline(1, '#!/bin/bash')
             call append(1, '##################################################')
             call append(2, '#      Filename: '.expand("%"))
-            call append(3, '#        Author: zhaohui mei<mzh.whut@gmail.com>')
+            call append(3, '#        Author: Zhaohui Mei<mzh.whut@gmail.com>')
             call append(4, '#   Description:      ')
-            call append(5, '#   Create Time: '.strftime("%y-%m-%d %h:%m:%s"))
-            call append(6, '# Last Modified: '.strftime("%y-%m-%d %h:%m:%s"))
+            call append(5, '#   Create Time: '.strftime("%Y-%m-%d %H:%M:%S"))
+            call append(6, '# Last Modified: '.strftime("%Y-%m-%d %H:%M:%S"))
             call append(7, '##################################################')
             call append(8, '')
             call append(9, '')
             call append(10, '')
             endif
     endfunc
+    map <F2> :call SetComment()<CR>:10<CR>o
     "Set Comment END
-" 文件头注释 }
-
 
     " SET Last Modified Time START
-   func DataInsert()
+    func DataInsert()
 		if expand("%:e") == 'c' || expand("%:e") == 'go'
 			call cursor(6, 1)
 			if search ('Last Modified') != 0
@@ -229,9 +226,11 @@ let mapleader = "-"
 	"SET Last Modified Time END
 
     " refer:https://blog.csdn.net/qq844352155/article/details/50513072
-"  }
+
+" 文件头注释 }}}
 
 
+" 自动加载 {{{}}}
 " 参考 vim自动加载
 " https://yianwillis.github.io/vimcdoc/doc/quickref.html#option-list
 " https://www.w3cschool.cn/vim/xenarozt.html
@@ -239,9 +238,12 @@ let mapleader = "-"
 autocmd filetype c set tabstop=4
 autocmd filetype html set tabstop=2
 autocmd filetype html set softtabstop=2 |set tabstop=2 |set shiftwidth=2
+" 自动加载 }}}
 
-" 插件设置
+
+" 插件设置 {{{}}}
 call plug#begin()
 
 " initialize plugin system
 call plug#end()
+" 插件设置 }}}
