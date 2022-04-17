@@ -2,6 +2,12 @@
 " :echom 会将打印的信息保存起来,可通过:messages命令查看到输出的消息
 " :echo 会打印信息，但不保存
 " :help echo 获取命令echo的帮助信息
+" <CR>表示回车键
+" vim的操作是按如下方式进行的:
+" <operation> <motion> 即：操作 动作, 如:
+" d3w 删除3个单词
+" y3l 复制右边3个字符
+" ciw 在当前词中进行变更，change in word.
 
 " 参考:
 " 1. vim学习笔记 http://yyq123.github.io/learn-vim/learn-vi-00-00-toc.html (已失效)
@@ -106,6 +112,17 @@ let mapleader = "-"
 
     " 插入模式下，按jj快捷键输入Esc退出键
     imap jj <Esc>
+
+    " 按大写J向下移动5行
+    noremap J 5j
+    " 按大写K向上移动5行
+    noremap K 5k
+
+    " 查找时使用+-来切换下一个或上一个
+    " = 切换到下一个匹配
+    noremap = nzz
+    " - 切换到上一个匹配
+    noremap - Nzz
 
     " 在普通模式下，禁用方向键
     " nop 表示 no operation即无操作
