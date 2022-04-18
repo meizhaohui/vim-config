@@ -21,6 +21,8 @@
     set smartcase
     " 设置高亮搜索匹配
     set hlsearch
+    " 每次打开新文件时，清除上次的高亮搜索结果
+    exec "nohlsearch"
     " 边输入边搜索(实时搜索)
     set incsearch
     " 设置退格方式
@@ -258,9 +260,16 @@ autocmd filetype html set softtabstop=2 |set tabstop=2 |set shiftwidth=2
 " 自动加载 }}}
 
 
-" 插件设置 {{{}}}
-call plug#begin()
+" 插件设置 {{{
+" junegunn/vim-plug 插件管理器
+" 插件安装到.vim/plugged 目录下
+call plug#begin('~/.vim/plugged')
+
+" 美化vim状态栏显示
+Plug 'vim-airline/vim-airline'
+
 
 " initialize plugin system
 call plug#end()
 " 插件设置 }}}
+
