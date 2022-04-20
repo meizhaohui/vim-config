@@ -1,3 +1,10 @@
+" 参考: https://github.com/theniceboy/vimrc-example
+" B站视频：
+" 上古神器Vim：从恶言相向到爱不释手 - 终极Vim教程01 - 带你配置属于你自己的最强IDE
+" https://www.bilibili.com/video/BV164411P7tw
+" 上古神器Vim：进阶使用/配置、必备插件介绍 - 终极Vim教程02 - 带你配置属于你自己的最强IDE
+" https://www.bilibili.com/video/BV1e4411V7AA
+
 " 在vim中输入:echo $MYVIMRC 命令可以知道文件存放位置
 " :echom 会将打印的信息保存起来,可通过:messages命令查看到输出的消息
 " :echo 会打印信息，但不保存
@@ -90,12 +97,16 @@
     set splitbelow
     " 是否折叠,设置为关闭
     set foldlevel=20
+    " vim执行命令时会在当前文件所在目录执行
+    set autochdir
+    " 每次打开vim回到上次编辑的位置
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 " 基本设置 }}}
 
 " 设置键映射前缀
-" 设置-减号为前缀
-" 注意此处定义时变量名是mapleader，而引用时是<leader>
-let mapleader = "-"
+" 设置' '空格为前缀
+" 注意此处定义时变量名是mapleader，而引用时是<LEADER>
+let mapleader = " "
 
 " 映射 {{{
     " 忘记使用sudo打开vim时，使用w!! 强制保存文件
@@ -139,7 +150,40 @@ let mapleader = "-"
     imap <RIGHT> <nop>
     imap <UP> <nop>
     imap <DOWN> <nop>
-   
+
+    " 分屏快捷键
+    " 分屏后，使用 :only 可仅保留当前屏
+    " 按sl向右分屏, 光标切换到右边的屏幕
+    map sl :set splitright<CR>:vsplit<CR>
+    " 按sl向左分屏, 光标切换到左边的屏幕
+    map sh :set nosplitright<CR>:vsplit<CR>
+    " 按sk向上分屏, 光标切换到上边的屏幕
+    map sk :set nosplitbelow<CR>:split<CR>
+    " 按sj向下分屏, 光标切换到下边的屏幕
+    map sj :set splitbelow<CR>:split<CR>
+
+    " 分屏后，可以使用 Ctrl(control)+W HJKL进行屏幕切换
+    " 可定义切换屏幕快捷键
+    " 按LEADER+L键，向右屏移动
+    map <LEADER>l <C-w>l
+    " 按LEADER+H键，向左屏移动
+    map <LEADER>h <C-w>h
+    " 按LEADER+J键，向下屏移动
+    map <LEADER>j <C-w>j
+    " 按LEADER+K键，向上屏移动
+    map <LEADER>k <C-w>k
+
+    " 改变分屏屏幕大小
+    " 更改上下屏幕大小，增加5
+    map <UP> :res +5<CR>
+    " 更改上下屏幕大小，减少5
+    map <DOWN> :res -5<CR>
+    " 更改左右屏幕大小，增加5
+    map <RIGHT> :vertical resize +5<CR>
+    " 更改左右屏幕大小，减少5
+    map <LEFT> :vertical resize -5<CR>
+
+
     " 按F2插入文件注释信息
     map <F2> :call setcomment()<CR>:10<CR>o
 
@@ -155,10 +199,10 @@ let mapleader = "-"
     map <silent> <c-a> gg v g$
    
     " 普通模式下，编辑我的.vimrc配置文件
-    nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+    nnoremap <LEADER>ev :vsplit $MYVIMRC<CR>
 
     " 普通模式下，重新加载.vimrc配置文件
-    nnoremap <leader>sv :source $MYVIMRC<CR>
+    nnoremap <LEADER>sv :source $MYVIMRC<CR>
     
     " 插入模式下，将该单词转换成大写
     " imap <leader>u <esc>viwu<esc>i
