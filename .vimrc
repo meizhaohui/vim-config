@@ -102,7 +102,7 @@
     " 每次打开vim回到上次编辑的位置
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
     " 显示行尾结束符标志，以及空格
-    set list
+    " set list
 " 基本设置 }}}
 
 " 设置键映射前缀
@@ -195,6 +195,9 @@ let mapleader = " "
     " 在普通模式下，清空搜索高亮
     noremap <LEADER><CR> :nohlsearch<CR>
 
+    " 插件安装快捷键
+    map <C-i> :PlugInstall<CR>
+    
     " 按F2插入文件注释信息
     map <F2> :call setcomment()<CR>:10<CR>o
 
@@ -334,6 +337,9 @@ Plug 'connorholyday/vim-snazzy'
 " URL: https://github.com/preservim/nerdtree
 Plug 'preservim/nerdtree'
 
+" 代码补全插件 Valloric/YouCompleteMe
+" URL: https://github.com/ycm-core/YouCompleteMe
+Plug 'ycm-core/YouCompleteMe'
 
 " initialize plugin system
 call plug#end()
@@ -344,4 +350,6 @@ call plug#end()
 " let g:SnazzyTransparent = 1
 " colorscheme snazzy
 " 按空格+n键打开资源管理器视图
-nnoremap <leader>n :NERDTreeFocus<CR>
+" 再按一次就会隐藏资源管理器视图
+" URL: https://github.com/preservim/nerdtree
+nnoremap <leader>n :NERDTreeToggle<CR>
