@@ -101,6 +101,8 @@
     set autochdir
     " 每次打开vim回到上次编辑的位置
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+    " 显示行尾结束符标志，以及空格
+    set list
 " 基本设置 }}}
 
 " 设置键映射前缀
@@ -182,7 +184,16 @@ let mapleader = " "
     map <RIGHT> :vertical resize +5<CR>
     " 更改左右屏幕大小，减少5
     map <LEFT> :vertical resize -5<CR>
+    
+    " 按tu键打开新的vim tab面
+    map tu :tabe<CR>
+    " 按tb键切换到前一个标签页
+    map tb :-tabnext<CR>
+    " 按ta键切换到后一个标签页
+    map ta :+tabnext<CR>
 
+    " 在普通模式下，清空搜索高亮
+    noremap <LEADER><CR> :nohlsearch<CR>
 
     " 按F2插入文件注释信息
     map <F2> :call setcomment()<CR>:10<CR>o
@@ -306,14 +317,31 @@ autocmd filetype html set softtabstop=2 |set tabstop=2 |set shiftwidth=2
 
 " 插件设置 {{{
 " junegunn/vim-plug 插件管理器
+" URL: https://github.com/junegunn/vim-plug
 " 插件安装到.vim/plugged 目录下
+" 命令: PlugInstall
 call plug#begin('~/.vim/plugged')
 
 " 美化vim状态栏显示
+" 如显示黄色的NORMAL，蓝色的INSERT等
+" URL: https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline'
+
+" snazzy的主题，黑白有点看不清楚
+Plug 'connorholyday/vim-snazzy'
+
+" 文件系统资源管理器,在VIM左侧显示一个类似资源管理器的视图
+" URL: https://github.com/preservim/nerdtree
+Plug 'preservim/nerdtree'
 
 
 " initialize plugin system
 call plug#end()
 " 插件设置 }}}
 
+" 在iterm2中并没有出现透明
+" 感觉颜色也不是很好看，注意掉这snazzy插件的设置
+" let g:SnazzyTransparent = 1
+" colorscheme snazzy
+" 按空格+n键打开资源管理器视图
+nnoremap <leader>n :NERDTreeFocus<CR>
